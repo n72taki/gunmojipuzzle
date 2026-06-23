@@ -18,6 +18,8 @@ MAX_ENTRIES = 100
 MAX_SCORE = int(os.environ.get("RANKING_MAX_SCORE", "1500000"))
 RATE_LIMIT_WINDOW_SECONDS = int(os.environ.get("RANKING_RATE_LIMIT_WINDOW_SECONDS", "60"))
 RATE_LIMIT_MAX = int(os.environ.get("RANKING_RATE_LIMIT_MAX", "30"))
+DB_CONNECT_RETRIES = int(os.environ.get("RANKING_DB_CONNECT_RETRIES", "6"))
+DB_CONNECT_DELAY_SECONDS = float(os.environ.get("RANKING_DB_CONNECT_DELAY_SECONDS", "5"))
 PLAYER_ID_PATTERN = re.compile(r"^player-[a-z0-9-]{8,80}$", re.IGNORECASE)
 DATE_KEY_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 RATE_LIMIT_BUCKETS = {}
@@ -263,9 +265,32 @@ def ensure_postgres_schema(connection):
 
 def db_connect():
     if BACKEND == "postgres":
-        connection = psycopg.connect(DATABASE_URL, row_factory=dict_row)
-        ensure_postgres_schema(connection)
-        return connection
+        last_error = None
+        for attempt in range(1, max(1, DB_CONNECT_RETRIES) + 1):
+            try:
+                connection = psycopg.connect(DATABASE_URL, row_factory=dict_row)
+                ensure_postgres_schema(connection)
+                return connection
+            except psycopg.OperationalError as error:
+                last_error = error
+                if attempt >= DB_CONNECT_RETRIES:
+                    break
+                print(
+                    json.dumps(
+                        {
+                            "ok": False,
+                            "backend": BACKEND,
+                            "event": "db_connect_retry",
+                            "attempt": attempt,
+                            "maxAttempts": DB_CONNECT_RETRIES,
+                            "error": str(error),
+                        },
+                        ensure_ascii=False,
+                    ),
+                    flush=True,
+                )
+                time.sleep(DB_CONNECT_DELAY_SECONDS)
+        raise last_error
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row

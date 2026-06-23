@@ -28,4 +28,5 @@ databases:
   - name: gunmoji-ranking-db
     databaseName: gunmoji_ranking
     user: gunmoji_ranking
+    region: singapore
     plan: basic-256mb
