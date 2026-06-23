@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="ぐんもじぱずる app icon">
+  <defs>
+    <linearGradient id="bg" x1="48" y1="32" x2="464" y2="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8fd6c4"/>
+      <stop offset="0.46" stop-color="#fff4d8"/>
+      <stop offset="1" stop-color="#ef5d50"/>
+    </linearGradient>
+    <linearGradient id="tileBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#70c4db"/>
+      <stop offset="1" stop-color="#2878b8"/>
+    </linearGradient>
+    <linearGradient id="tileRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fb8f67"/>
+      <stop offset="1" stop-color="#d64045"/>
+    </linearGradient>
+    <linearGradient id="tileGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#95c75f"/>
+      <stop offset="1" stop-color="#397f68"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M70 132c72-56 143-60 214-12 56 38 107 42 158 12v244c-72 44-139 45-201 3-57-39-114-43-171-12V132Z" fill="#fffaf1" opacity="0.74"/>
+  <circle cx="110" cy="104" r="23" fill="#f5b642" opacity="0.9"/>
+  <circle cx="405" cy="114" r="18" fill="#fffaf1" opacity="0.9"/>
+  <g filter="drop-shadow(0 18px 22px rgba(26,36,51,.24))">
+    <rect x="92" y="165" width="126" height="126" rx="28" fill="url(#tileBlue)"/>
+    <rect x="246" y="132" width="126" height="126" rx="28" fill="url(#tileRed)"/>
+    <rect x="177" y="290" width="126" height="126" rx="28" fill="url(#tileGreen)"/>
+  </g>
+  <g font-family="Meiryo, 'Yu Gothic', sans-serif" font-weight="900" text-anchor="middle" dominant-baseline="central" fill="#fff" stroke="#1a2433" stroke-width="9" paint-order="stroke">
+    <text x="155" y="230" font-size="66">ぐ</text>
+    <text x="309" y="197" font-size="66">も</text>
+    <text x="240" y="355" font-size="66">じ</text>
+  </g>
+</svg>

@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>ぐんもじぱずる</title>
+    <meta name="description" content="60秒で群馬かなパネルをそろえる、スマホ向け光るかなパネルパズル。">
+    <meta name="theme-color" content="#ef5d50">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="ぐんもじぱずる">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/app-icon-192.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell" aria-label="ぐんもじぱずる">
+      <section class="phone" data-screen="title">
+        <section class="app-screen title-screen is-active" id="titleScreen" data-app-screen="title" aria-label="title screen">
+          <div class="title-card-showcase" id="titleCardShowcase" aria-hidden="true">
+            <article class="title-feature-card title-card-gunma has-art" data-card-id="basic-gunma-ken">
+              <span class="title-rarity">G</span>
+              <strong>ぐんまけん</strong>
+            </article>
+            <article class="title-feature-card title-card-daruma is-main has-art" data-card-id="basic-daruma">
+              <span class="title-rarity">G</span>
+              <strong>だるま</strong>
+            </article>
+            <article class="title-feature-card title-card-akagi has-art" data-card-id="basic-akagi-san">
+              <span class="title-rarity">G</span>
+              <strong>あかぎさん</strong>
+            </article>
+          </div>
+          <div class="title-copy">
+            <h1 class="game-logo-heading title-logo-heading">
+              <img class="game-logo-img" src="assets/gunmoji-logo.png" alt="" aria-hidden="true">
+              <span class="visually-hidden">ぐんもじぱずる</span>
+            </h1>
+          </div>
+          <button class="title-start-button" id="titleStartButton" type="button" aria-label="タイトル画面を進める">
+            <span>TOUCH START</span>
+          </button>
+        </section>
+
+        <section class="app-screen menu-screen" id="menuScreen" data-app-screen="menu" aria-label="top menu" hidden>
+          <header class="menu-header">
+            <div class="home-status-strip" aria-label="home status">
+              <button class="home-player-profile" id="profileEditButton" type="button" aria-label="プロフィールを編集">
+                <span class="home-player-copy">
+                  <strong id="menuPlayerName">あなた</strong>
+                  <em id="menuPlayerRank">ランク 1</em>
+                  <b id="menuPlayerTitle">上毛見習い</b>
+                  <small id="menuPlayerXpText">EXP 0/100</small>
+                  <i class="home-player-xp-meter" aria-hidden="true"><span id="menuPlayerXpBar"></span></i>
+                </span>
+              </button>
+              <div class="home-resource-row">
+                <span class="home-stamina-chip">
+                  <span class="stamina-pips" id="menuStaminaPips" aria-hidden="true"></span>
+                  <strong id="menuStaminaText">スタミナ 5/5</strong>
+                </span>
+                <button class="g-stone-chip" id="menuStoneText" type="button" data-nav-target="purchase" aria-label="Gだるま 0">Gだるま 0</button>
+
+                <button class="menu-settings-button" type="button" data-nav-target="settings" aria-label="設定">
+                  <span aria-hidden="true">⚙</span>
+                  <strong>設定</strong>
+                </button>
+              </div>
+              <button class="stamina-ad-button" id="staminaAdButton" type="button">
+                <span>TEST</span>
+                <strong>+1</strong>
+              </button>
+            </div>
+          </header>
+          <section class="daily-gift-panel" id="dailyGiftPanel" aria-label="daily login gift" hidden>
+            <div>
+              <span id="menuDailyGiftTitle">今日の差し入れ</span>
+              <strong id="menuDailyGiftReward">Gだるま+1</strong>
+            </div>
+            <p id="menuDailyGiftNote">毎日1回受け取れます</p>
+            <button class="daily-gift-button" id="dailyGiftButton" type="button">
+              <span>受取</span>
+              <strong>CLAIM</strong>
+            </button>
+          </section>
+          <section class="stamina-empty-panel" id="staminaEmptyPanel" aria-label="stamina empty" hidden>
+            <div>
+              <span>スタミナ切れ</span>
+              <strong id="menuStaminaEmptyTimer">回復まで 0:00</strong>
+            </div>
+            <p id="menuStaminaEmptyNote">練習は報酬なしで遊べます</p>
+            <button class="stamina-g-recover-button" id="staminaGRecoverButton" type="button">
+              <span>G1</span>
+              <strong>全回復</strong>
+            </button>
+            <button class="stamina-practice-button" type="button" data-nav-target="game">
+              <span aria-hidden="true">▶</span>
+              <strong>練習する</strong>
+            </button>
+          </section>
+          <section class="first-play-panel" id="firstPlayPanel" aria-label="はじめての遊び方" hidden>
+            <div>
+              <span>START GUIDE</span>
+              <strong>かなパネルを動かして、ことばを完成</strong>
+            </div>
+            <button class="first-play-button" type="button" data-nav-target="game">
+              <span aria-hidden="true">▶</span>
+              <strong>チュートリアルへ</strong>
+            </button>
+          </section>
+          <button class="home-play-button" type="button" data-nav-target="game" aria-label="ゲームをプレイ">
+            <span class="home-play-icon" aria-hidden="true">▶</span>
+            <span class="home-play-copy">
+              <em>MAIN</em>
+              <strong>ゲーム</strong>
+            </span>
+            <img class="home-play-art" src="assets/generated/card-basic-gunma-ken.png" alt="" decoding="async" draggable="false" aria-hidden="true">
+          </button>
+          <section class="home-deck-panel" aria-label="current deck">
+            <div class="section-title">
+              <span>CURRENT DECK</span>
+              <strong id="menuPushName">推し ぐんまけん</strong>
+            </div>
+            <div class="home-deck-grid" id="menuDeckGrid"></div>
+          </section>
+          <button class="season-ranking-card" id="seasonRankingCard" type="button" data-nav-target="ranking" aria-label="シーズン1ランキングを見る">
+            <div class="season-ranking-copy">
+              <span id="menuSeasonLabel">シーズン1</span>
+              <strong id="menuSeasonStage">シーズン1 ランキング</strong>
+              <p id="menuSeasonPeriod">2026/06/12 - 2026/08/31</p>
+            </div>
+            <div class="season-ranking-stats" aria-label="自分のシーズン成績">
+              <span>自分 <b id="menuSeasonRank">未参加</b></span>
+              <span>最高 <b id="menuSeasonBest">0</b></span>
+            </div>
+          </button>
+          <nav class="menu-grid" aria-label="main menu">
+            <button class="menu-button" type="button" data-nav-target="deck" aria-label="デッキ構築">
+              <span class="menu-icon" aria-hidden="true">◆</span>
+              <strong>デッキ</strong>
+              <em>BUILD</em>
+            </button>
+            <button class="menu-button" type="button" data-nav-target="pack" aria-label="パック購入">
+              <span class="menu-icon" aria-hidden="true">G</span>
+              <strong>パック</strong>
+              <em>OPEN</em>
+            </button>
+            <button class="menu-button is-primary" type="button" data-nav-target="game" aria-label="ゲームをプレイ">
+              <span class="menu-icon" aria-hidden="true">▶</span>
+              <strong>ゲーム</strong>
+              <em>PLAY</em>
+            </button>
+            <button class="menu-button" type="button" data-nav-target="missions" aria-label="ミッション">
+              <span class="menu-icon" aria-hidden="true">M</span>
+              <strong>ミッション</strong>
+              <em>GOAL</em>
+            </button>
+            <button class="menu-button" type="button" data-nav-target="ranking" aria-label="ランキング">
+              <span class="menu-icon" aria-hidden="true">R</span>
+              <strong>ランキング</strong>
+              <em>RANK</em>
+            </button>
+          </nav>
+        </section>
+
+        <section class="app-screen feature-screen purchase-screen" id="purchaseScreen" data-app-screen="purchase" aria-label="G shop" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">G SHOP</p>
+              <h1>Gだるまショップ</h1>
+            </div>
+          </header>
+
+          <section class="purchase-panel" aria-label="G purchase">
+            <div class="section-title">
+              <span>G BALANCE</span>
+              <strong id="purchaseBalanceText">Gだるま 0</strong>
+            </div>
+            <div class="purchase-test-notice" id="purchaseTestNotice" role="note">
+              <span>CLOSED TEST</span>
+              <strong>購入モック</strong>
+              <p>課金SDK未接続です。ボタンはテスト用にGだるまを付与します。</p>
+            </div>
+            <section class="purchase-stamina-card" aria-label="stamina full recovery">
+              <div>
+                <span>STAMINA</span>
+                <strong id="purchaseStaminaText">スタミナ 5/5</strong>
+                <p id="purchaseStaminaNote">G1で全回復できます</p>
+              </div>
+              <button class="purchase-recover-button" id="purchaseRecoverButton" type="button">
+                <span>G1</span>
+                <strong>全回復</strong>
+              </button>
+            </section>
+            <div class="purchase-bundle-grid" id="purchaseBundleGrid" aria-label="G bundles"></div>
+            <p class="purchase-legal-note" id="purchaseLegalNote">まとめ買いほどボーナスGだるまが増えます</p>
+          </section>
+        </section>
+
+        <section class="app-screen feature-screen missions-screen" id="missionsScreen" data-app-screen="missions" aria-label="missions" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">MISSION</p>
+              <h1>ミッション</h1>
+            </div>
+          </header>
+
+          <section class="missions-locked-panel" id="missionsLockedPanel" aria-label="mission unlock notice" hidden>
+            <span>COMING UP</span>
+            <strong>まずは1プレイ</strong>
+            <p>ゲームに慣れてから、今日と週替わりの目標が出ます。</p>
+          </section>
+
+          <section class="missions-list" aria-label="mission list">
+            <section class="daily-word-panel" id="dailyWordPanel" aria-label="daily word target" hidden>
+              <div>
+                <span id="menuDailyWordTitle">今日のことば</span>
+                <strong id="menuDailyWordName">ぐんまけん</strong>
+              </div>
+              <p id="menuDailyWordNote">まずはこのことばを狙おう</p>
+              <em id="menuDailyWordPrompt">かな ぐ・ん・ま・け・ん / 5字 / 3750点</em>
+              <button class="daily-word-button" id="dailyWordGuideButton" type="button">
+                <span>図鑑</span>
+                <strong>GUIDE</strong>
+              </button>
+            </section>
+            <section class="daily-panel" id="dailyPanel" aria-label="daily mission">
+              <div>
+                <span id="menuDailyTitle">今日のことば目標</span>
+                <strong id="menuDailyProgress">0/3回</strong>
+              </div>
+              <p id="menuDailyReward">達成でGだるま+1</p>
+              <span class="daily-streak-chip" id="menuStreakText">連続0日 あと3日</span>
+              <span class="daily-meter" aria-hidden="true"><span id="menuDailyBar"></span></span>
+            </section>
+            <section class="score-goal-panel" id="scoreGoalPanel" aria-label="daily score target">
+              <div>
+                <span id="menuScoreGoalTitle">今日のスコア目標</span>
+                <strong id="menuScoreGoalProgress">0 / 5,000</strong>
+              </div>
+              <p id="menuScoreGoalReward">達成でGだるま+1</p>
+              <span class="score-goal-meter" aria-hidden="true"><span id="menuScoreGoalBar"></span></span>
+            </section>
+            <section class="weekly-challenge-panel" id="weeklyChallengePanel" aria-label="weekly challenge">
+              <div>
+                <span id="menuWeeklyTitle">週替わりチャレンジ</span>
+                <strong id="menuWeeklyProgress">0/200語</strong>
+              </div>
+              <p id="menuWeeklyReward">今週のGだるま+1</p>
+              <span class="weekly-challenge-note" id="menuWeeklyNote">週替わりのお題に挑戦</span>
+              <span class="weekly-challenge-meter" aria-hidden="true"><span id="menuWeeklyBar"></span></span>
+            </section>
+          </section>
+        </section>
+
+        <section class="app-screen feature-screen ranking-screen" id="rankingScreen" data-app-screen="ranking" aria-label="ranking" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">RANKING</p>
+              <h1>ランキング</h1>
+            </div>
+          </header>
+
+          <div class="ranking-main-tabs" id="rankingMainTabs" role="tablist" aria-label="ランキング切り替え">
+            <button class="ranking-main-tab" id="rankingMainTabDaily" type="button" role="tab" data-ranking-view="daily" aria-controls="dailyRankingPanel" aria-selected="false">
+              <span>DAILY</span>
+              <strong>デイリー</strong>
+            </button>
+            <button class="ranking-main-tab is-active" id="rankingMainTabSeason" type="button" role="tab" data-ranking-view="season" aria-controls="rankingSeasonPanel" aria-selected="true">
+              <span>SEASON</span>
+              <strong>シーズン記録</strong>
+            </button>
+          </div>
+
+          <section class="daily-ranking-panel ranking-tab-panel" id="dailyRankingPanel" role="tabpanel" data-ranking-panel="daily" aria-labelledby="rankingMainTabDaily" aria-label="daily ranking" hidden>
+            <div class="daily-ranking-head">
+              <div>
+                <span>DAILY</span>
+                <strong id="dailyRankingTitle">デイリーランキング</strong>
+                <p id="dailyRankingDate">今日のベストスコア</p>
+              </div>
+              <div class="daily-ranking-tabs" aria-label="daily ranking period">
+                <button class="daily-ranking-tab is-active" id="dailyRankingTodayButton" type="button" data-daily-ranking-view="today" aria-pressed="true">今日</button>
+                <button class="daily-ranking-tab" id="dailyRankingYesterdayButton" type="button" data-daily-ranking-view="yesterday" aria-pressed="false">昨日</button>
+              </div>
+            </div>
+            <div class="daily-ranking-status" id="dailyRankingRewardStatus">昨日トップ10でGだるま+3</div>
+            <div class="daily-ranking-own-grid" aria-label="my daily ranking">
+              <div>
+                <span>自分の順位</span>
+                <strong id="dailyRankingOwnRank">未参加</strong>
+              </div>
+              <div>
+                <span>自分のスコア</span>
+                <strong id="dailyRankingOwnBest">0</strong>
+              </div>
+            </div>
+            <div class="ranking-list daily-ranking-list" id="dailyRankingList"></div>
+          </section>
+
+          <section class="ranking-season-panel ranking-tab-panel" id="rankingSeasonPanel" role="tabpanel" data-ranking-panel="season" aria-labelledby="rankingMainTabSeason" aria-label="season ranking summary">
+            <div class="ranking-season-copy">
+              <span id="rankingSeasonLabel">シーズン1</span>
+              <strong id="rankingSeasonTitle">ぐんもじ杯</strong>
+              <p id="rankingSeasonPeriod">2026/06/12 - 2026/08/31</p>
+              <em id="rankingQualifierText">シーズン期間内の最高スコアで競います</em>
+            </div>
+            <div class="ranking-stage-tabs" id="rankingStageTabs" aria-label="ranking stage"></div>
+            <div class="ranking-stage-status" id="rankingStageStatus">シーズン1 開催中 / シーズン通算ランキング</div>
+            <div class="ranking-sync-status" id="rankingSyncStatus" role="status" aria-live="polite">ローカル保存</div>
+            <div class="ranking-own-grid" aria-label="my season ranking">
+              <div>
+                <span>自分のシーズンランキング</span>
+                <strong id="rankingOwnRank">未参加</strong>
+              </div>
+              <div>
+                <span>自分のシーズン最高スコア</span>
+                <strong id="rankingOwnBest">0</strong>
+              </div>
+              <div class="ranking-own-title-card">
+                <span>獲得称号</span>
+                <strong id="rankingOwnTitle">上毛見習い</strong>
+                <em id="rankingOwnTitleNote">通常称号</em>
+              </div>
+            </div>
+            <section class="ranking-final-rules" id="rankingFinalRules" aria-label="final rules" hidden>
+              <div>
+                <span>FINAL RULES</span>
+                <strong>ファイナル条件</strong>
+              </div>
+              <div class="ranking-rule-list" id="rankingFinalRuleList"></div>
+              <p id="rankingFinalDeckStatus">現在のデッキを確認中</p>
+            </section>
+            <div class="season-record-tabs" id="seasonRecordTabs" aria-label="season record view">
+              <button class="season-record-tab is-active" id="seasonRecordCurrentButton" type="button" data-season-record-view="current" aria-pressed="true">開催中</button>
+              <button class="season-record-tab" id="seasonRecordHistoryButton" type="button" data-season-record-view="history" aria-pressed="false">過去記録</button>
+            </div>
+            <section class="season-current-panel" id="seasonCurrentPanel" aria-label="current season top 100">
+              <div class="section-title">
+                <span>TOP 100</span>
+                <strong>トップ100＋自分の順位</strong>
+              </div>
+              <div class="ranking-list" id="rankingList"></div>
+            </section>
+            <section class="season-history-panel" id="seasonHistoryPanel" aria-label="past season records" hidden>
+              <div class="section-title">
+                <span>ARCHIVE</span>
+                <strong>過去シーズン記録</strong>
+              </div>
+              <div class="season-history-list" id="seasonHistoryList"></div>
+            </section>
+          </section>
+        </section>
+
+        <section class="app-screen feature-screen game-screen" id="gameScreen" data-app-screen="game" aria-label="game screen" hidden>
+          <header class="topbar">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div class="run-stats" aria-label="run stats">
+              <div class="stat-card">
+                <span>TIME</span>
+                <strong id="timeText">60.0</strong>
+              </div>
+              <div class="stat-card">
+                <span>SCORE</span>
+                <strong id="scoreText">0</strong>
+              </div>
+            </div>
+            <button class="pause-button" id="pauseButton" type="button" aria-label="一時停止" disabled>Ⅱ</button>
+          </header>
+
+          <div class="word-call" id="wordCall" aria-live="polite" aria-hidden="true">
+            <span>ことばクリア</span>
+            <strong id="wordCallText">ぐんまけん</strong>
+            <em id="wordCallScore">+3,750</em>
+          </div>
+
+          <section class="play-panel">
+            <canvas id="gameCanvas" aria-label="かなパネルプレイフィールド"></canvas>
+            <div class="field-shine" aria-hidden="true"></div>
+            <button class="stage-start-button" id="startButton" type="button">
+              <span>▶</span>
+              <strong id="startButtonText">START</strong>
+            </button>
+            <div class="stage-countdown" id="stageCountdown" aria-live="polite" hidden>
+              <span>READY</span>
+              <strong id="stageCountdownText">3</strong>
+            </div>
+            <div class="toast" id="toast" aria-live="polite"></div>
+            <div class="tutorial-coach" id="tutorialCoach" aria-live="polite" hidden>
+              <span>FIRST CLEAR</span>
+              <strong id="tutorialCoachText">光る2枚をスライド</strong>
+              <em id="tutorialCoachSubtext">ぐんまけん完成</em>
+            </div>
+            <div class="pause-card" id="pauseCard" hidden>
+              <span>PAUSE</span>
+              <strong>一時停止中</strong>
+              <p id="pauseReasonText">続きから再開できます</p>
+              <div class="pause-actions">
+                <button id="resumeButton" type="button">再開</button>
+                <button class="pause-quit-button" id="quitRunButton" type="button">やめる</button>
+              </div>
+            </div>
+            <div class="finish-card" id="finishCard" hidden>
+              <span>RESULT</span>
+              <strong id="finishScore">0</strong>
+              <em id="finishRank">RANK C</em>
+              <p id="finishBestText">BEST 0</p>
+              <div class="finish-stats" aria-label="run summary">
+                <span id="finishWords">0 WORDS</span>
+                <span id="finishBestWord">BEST WORD -</span>
+              </div>
+              <div class="finish-reward-summary" id="finishRewardSummary" aria-label="run reward summary">
+                <span>報酬</span>
+                <strong id="finishRewardText">今回の報酬</strong>
+              </div>
+              <div class="finish-xp-summary" id="finishXpSummary" aria-label="experience reward">
+                <span>EXP</span>
+                <strong id="finishXpText">EXP +0 / ランク 1</strong>
+                <i aria-hidden="true"><b id="finishXpBar"></b></i>
+              </div>
+              <div class="finish-actions">
+                <button id="finishRestart" class="is-primary" type="button">
+                  <span>▶</span>
+                  <strong>もう1回</strong>
+                </button>
+                <button id="finishHome" type="button">
+                  <span>⌂</span>
+                  <strong>トップへ</strong>
+                </button>
+                <button id="finishDeck" type="button">
+                  <span>◆</span>
+                  <strong>デッキ構築</strong>
+                </button>
+              </div>
+            </div>
+          </section>
+          <section class="game-deck-control-row" aria-label="デッキとゲーム操作">
+            <section class="game-deck-legend" id="gameDeckLegend" aria-label="デッキとパネル色"></section>
+            <button class="refresh-button" id="refreshButton" type="button" aria-label="盤面リフレッシュ" disabled>↻</button>
+          </section>
+
+          <section class="control-row" aria-label="game controls" hidden aria-hidden="true">
+            <button class="skill-button" id="skillButton" type="button" disabled>
+              <span class="skill-card-thumb" id="skillIcon" aria-hidden="true">推</span>
+              <span class="skill-copy">
+                <span class="skill-boost-label">デッキスキル</span>
+                <span id="skillText">推しスキル</span>
+              </span>
+              <span class="skill-mini-gauge" aria-label="skill gauge">
+                <span id="skillGauge"></span>
+              </span>
+            </button>
+          </section>
+        </section>
+
+        <section class="app-screen feature-screen deck-screen" id="deckScreen" data-app-screen="deck" aria-label="deck builder" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">DECK</p>
+              <h1>デッキ構築</h1>
+            </div>
+          </header>
+
+          <section class="deck-panel" aria-label="deck">
+            <div class="section-title">
+              <span>DECK</span>
+              <strong id="pushName">ぐんまけん</strong>
+            </div>
+            <div class="deck-grid" id="deckGrid"></div>
+            <section class="deck-strategy-panel" id="deckStrategyPanel" aria-label="deck strategy summary">
+              <div class="deck-strategy-head">
+                <span>PLAY PLAN</span>
+                <strong id="deckStrategyLead">文字13 / 最大3,750点</strong>
+              </div>
+              <div class="deck-strategy-words" id="deckStrategyWords" aria-label="deck word scores"></div>
+              <p id="deckStrategyKana">頻出 ん23% / ま15%</p>
+              <p id="deckStrategyAdvice">短めと5字が混ざる安定型</p>
+            </section>
+          </section>
+
+          <section class="collection-panel" aria-label="collection">
+            <div class="section-title">
+              <span>COLLECTION</span>
+              <strong>カード一覧</strong>
+            </div>
+            <div class="collection-tools" aria-label="collection tools">
+              <div class="collection-filter-row" id="collectionFilterRow" aria-label="card collection filters"></div>
+              <div class="collection-length-row" id="collectionLengthRow" aria-label="card length filters"></div>
+              <div class="collection-sort-row" id="collectionSortRow" aria-label="card collection sort"></div>
+            </div>
+            <div class="collection-grid" id="collectionGrid"></div>
+            <section class="word-guide-panel" id="wordGuidePanel" aria-label="word guide">
+              <span class="word-guide-badge">ことばメモ</span>
+              <strong id="wordGuideTitle">ぐんまけん</strong>
+              <em id="wordGuideMeta"><span class="g-rarity-icons" aria-label="G"><span>G</span></span> / ぐんまけん</em>
+              <p id="wordGuideNote">群馬県そのもの。山、温泉、食文化などの入口</p>
+              <div class="word-guide-detail-row" aria-label="word guide details">
+                <b id="wordGuideLetters">かな ぐ・ん・ま・け・ん</b>
+                <b id="wordGuideStatus">所持 1 / Gブースト</b>
+              </div>
+              <button class="word-guide-action" id="wordGuideAction" type="button">デッキへ入れる</button>
+            </section>
+          </section>
+        </section>
+
+        <section class="app-screen feature-screen pack-screen" id="packScreen" data-app-screen="pack" aria-label="pack shop" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">PACK</p>
+              <h1>パック購入</h1>
+            </div>
+          </header>
+
+          <section class="pack-panel" aria-label="card pack">
+            <div class="section-title">
+              <span>PACK</span>
+              <strong id="stoneText">Gだるま 0 / 10</strong>
+            </div>
+            <div class="pack-selector" id="packSelector" aria-label="pack selection"></div>
+            <p class="pack-period" id="packPeriodText">販売期間 -</p>
+            <div class="pack-feature-row" id="packFeatureRow" aria-label="featured cards"></div>
+            <div class="pack-test-notice" id="packTestNotice" role="note">
+              <span>CLOSED TEST</span>
+              <strong>広告/課金SDK未接続</strong>
+              <p>下のGだるま付与はテスト用です。本番購入は発生しません。</p>
+            </div>
+            <div class="pack-actions">
+              <button id="adButton" type="button">
+                <span>TEST AD</span>
+                <strong>Gだるま+1</strong>
+              </button>
+              <button id="testBuyButton" type="button">
+                <span>TEST GRANT</span>
+                <strong>Gだるま+10</strong>
+              </button>
+              <button id="openPackButton" type="button">
+                <span>PACK</span>
+                <strong>開封</strong>
+              </button>
+              <button id="packDetailButton" type="button">
+                <span>INFO</span>
+                <strong>詳細</strong>
+              </button>
+            </div>
+            <button class="pack-exchange" id="packExchangeStatus" type="button">
+              <span class="exchange-daruma-icon" aria-hidden="true"></span>
+              <span>引換だるま 0/50</span>
+            </button>
+            <div class="pack-progress" id="packCollectionProgress" aria-label="collection progress">
+              <div class="pack-progress-copy">
+                <span>COLLECT</span>
+                <strong id="packCollectionText">ぐんまのし 0/12種</strong>
+              </div>
+              <div class="pack-progress-bar" aria-hidden="true"><span id="packCollectionBar"></span></div>
+              <small id="packCollectionHint">あと12種</small>
+            </div>
+            <div class="pack-result" id="packResult" hidden></div>
+            <div class="pack-reveal" id="packReveal" aria-live="polite">
+              <div class="pack-reveal-envelope" aria-hidden="true">G</div>
+              <div class="pack-reveal-copy">
+                <span id="packRevealRarity">READY</span>
+                <strong id="packRevealName">パックを開封</strong>
+                <small id="packRevealMeta">Gだるま10個でカード1枚</small>
+                <div class="pack-reveal-actions">
+                  <button class="pack-reveal-action" id="packRevealAction" type="button" hidden>カードを見る</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="pack-detail-modal" id="packDetailModal" role="dialog" aria-modal="true" aria-labelledby="packDetailTitle" hidden>
+            <section class="pack-detail-card" aria-label="pack details">
+              <header class="pack-detail-head">
+                <div>
+                  <span>DETAIL</span>
+                  <strong id="packDetailTitle">確率とラインナップ</strong>
+                </div>
+                <button id="packDetailClose" type="button" aria-label="閉じる">×</button>
+              </header>
+              <div class="rate-row" id="rateRow"></div>
+              <div class="pack-lineup" id="packLineup" aria-label="pack lineup"></div>
+            </section>
+          </div>
+
+          <div class="pack-opening-modal" id="packOpeningModal" role="dialog" aria-modal="true" aria-labelledby="packOpeningTitle" hidden>
+            <section class="pack-opening-card" id="packOpeningCard" aria-label="pack opening result">
+              <header class="pack-opening-head">
+                <div>
+                  <span id="packOpeningKicker">OPEN</span>
+                  <strong id="packOpeningTitle">開封結果</strong>
+                </div>
+                <button id="packOpeningClose" type="button" aria-label="閉じる">×</button>
+              </header>
+              <div class="pack-opening-stage">
+                <div class="pack-opening-art" id="packOpeningArtFrame">
+                  <img id="packOpeningArt" src="" alt="" hidden>
+                  <span id="packOpeningFallback" aria-hidden="true">G</span>
+                </div>
+                <div class="pack-opening-copy">
+                  <span class="pack-opening-rarity" id="packOpeningRarity">READY</span>
+                  <div class="pack-opening-name" id="packOpeningName" aria-live="polite"></div>
+                  <p class="pack-opening-skill" id="packOpeningSkill" hidden></p>
+                  <small id="packOpeningMeta">カードを確認</small>
+                </div>
+              </div>
+              <div class="pack-opening-actions">
+                <button class="pack-opening-action" id="packOpeningAction" type="button">カードを見る</button>
+                <button class="pack-opening-again-action" id="packOpeningAgain" type="button">もう1回引く</button>
+                <button class="pack-opening-close-action" id="packOpeningCloseAction" type="button">閉じる</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="app-screen feature-screen settings-screen" id="settingsScreen" data-app-screen="settings" aria-label="settings" hidden>
+          <header class="screen-head">
+            <button class="back-button" type="button" data-nav-target="menu" aria-label="トップメニューへ">‹</button>
+            <div>
+              <p class="brand">OPTION</p>
+              <h1>設定</h1>
+            </div>
+          </header>
+
+          <section class="settings-panel howto-panel" aria-label="遊び方">
+            <div class="howto-panel-head">
+              <span>HOW TO</span>
+              <strong>遊び方</strong>
+            </div>
+            <div class="howto-step-grid">
+              <div class="howto-step">
+                <span>1</span>
+                <strong>かなパネルをスライド</strong>
+                <p>上下左右に1マス動かして、デッキのことばをそろえる。</p>
+              </div>
+              <div class="howto-step">
+                <span>2</span>
+                <strong>ことば成立で消える</strong>
+                <p>つながったかなが読みと同じ数だけそろうとスコアになる。</p>
+              </div>
+              <div class="howto-step">
+                <span>3</span>
+                <strong>推しとスキル</strong>
+                <p>推しカードを中心にデッキを組み、ゲージ満タンでスキル発動。</p>
+              </div>
+              <div class="howto-step">
+                <span>4</span>
+                <strong>カードを集める</strong>
+                <p>パックと引換だるまでカードを増やし、デッキを強くする。</p>
+              </div>
+            </div>
+            <div class="howto-actions">
+              <button id="tutorialReplayButton" type="button">
+                <span>TUTORIAL</span>
+                <strong>チュートリアルをやり直す</strong>
+              </button>
+              <button id="resetSaveButton" class="danger-action" type="button">
+                <span>RESET</span>
+                <strong>データリセット</strong>
+              </button>
+            </div>
+            <p class="reset-save-note" id="resetSaveNote">リセットは2回押しで実行します。所持カード、G、ランキング保存待ち、設定がこの端末から消えます。</p>
+          </section>
+
+          <section class="settings-panel" aria-label="settings options">
+            <label class="setting-row">
+              <span>サウンド</span>
+              <input id="soundToggle" type="checkbox" checked>
+            </label>
+            <button class="sound-test-button" id="soundTestButton" type="button">
+              <span>SOUND</span>
+              <strong>音を確認</strong>
+            </button>
+            <label class="setting-row">
+              <span>振動</span>
+              <input id="vibrationToggle" type="checkbox" checked>
+            </label>
+            <label class="setting-row">
+              <span>演出控えめ</span>
+              <input id="motionToggle" type="checkbox">
+            </label>
+            <label class="setting-row">
+              <span>大きめ文字</span>
+              <input id="largeTextToggle" type="checkbox">
+            </label>
+            <label class="setting-row">
+              <span>高コントラスト</span>
+              <input id="contrastToggle" type="checkbox">
+            </label>
+            <label class="setting-row">
+              <span>パネル番号表示</span>
+              <input id="tileMarkToggle" type="checkbox" aria-label="パネル番号表示 色だけでなく番号でパネルを見分ける">
+            </label>
+          </section>
+
+          <section class="settings-panel build-panel" aria-label="ビルド情報">
+            <div class="build-panel-copy">
+              <span>BUILD</span>
+              <strong id="buildVersionText">v0.1.0</strong>
+              <p id="buildChannelText">closed-test</p>
+            </div>
+          </section>
+
+          <section class="settings-panel policy-panel" aria-label="サポートとポリシー">
+            <div class="policy-panel-head">
+              <span>SUPPORT</span>
+              <strong>サポート・ポリシー</strong>
+            </div>
+            <div class="policy-link-grid">
+              <a id="policyPrivacyLink" class="policy-link" href="../homepage/privacy.html">
+                <span>PRIVACY</span>
+                <strong>プライバシーポリシー</strong>
+              </a>
+              <a id="policyTermsLink" class="policy-link" href="../homepage/terms.html">
+                <span>TERMS</span>
+                <strong>利用規約</strong>
+              </a>
+              <a id="policyCommercialLink" class="policy-link" href="../homepage/commercial-transactions.html">
+                <span>LEGAL</span>
+                <strong>特定商取引法に基づく表記</strong>
+              </a>
+            </div>
+          </section>
+        </section>
+
+        <section class="ad-banner" id="adBanner" aria-label="banner ad placeholder">
+          <span>AD</span>
+          <strong>バナー広告枠</strong>
+          <em>表示テスト</em>
+        </section>
+
+        <div class="daily-gift-modal" id="dailyGiftModal" role="dialog" aria-modal="true" aria-labelledby="dailyGiftModalTitle" hidden>
+          <section class="daily-gift-modal-card" aria-label="daily login gift">
+            <span class="daily-gift-modal-badge">差し入れ</span>
+            <strong id="dailyGiftModalTitle">今日の差し入れ</strong>
+            <p id="dailyGiftModalNote">毎日1回、無料でGだるまを受け取れます</p>
+            <div class="daily-gift-modal-reward">
+              <span>Gだるま</span>
+              <b id="dailyGiftModalReward">+1</b>
+            </div>
+            <div class="daily-gift-modal-actions">
+              <button id="dailyGiftModalLater" type="button">あとで</button>
+              <button id="dailyGiftModalClaim" type="button">受け取る</button>
+            </div>
+          </section>
+        </div>
+        <div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" hidden>
+          <section class="profile-modal-card" aria-label="profile edit">
+            <span class="profile-modal-badge">PROFILE</span>
+            <strong id="profileModalTitle">プロフィール編集</strong>
+            <label class="profile-name-field" for="profileNameInput">
+              <span>名前</span>
+              <input id="profileNameInput" type="text" maxlength="12" autocomplete="off" inputmode="text" value="あなた">
+            </label>
+            <div class="profile-title-field">
+              <span>称号</span>
+              <div class="profile-title-list" id="profileTitleList" role="listbox" aria-label="称号選択"></div>
+            </div>
+            <p class="profile-modal-note" id="profileModalNote" hidden></p>
+            <div class="profile-modal-actions">
+              <button id="profileCancelButton" type="button">閉じる</button>
+              <button id="profileSaveButton" type="button">保存</button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="data/cards.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/register-service-worker.js"></script>
+  </body>
+</html>

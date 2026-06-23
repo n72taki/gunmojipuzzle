@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: gunmoji-ranking-api
+    runtime: python
+    plan: starter
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server/ranking-server.py
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: RANKING_HOST
+        value: 0.0.0.0
+      - key: RANKING_CONFIG_PATH
+        value: server/ranking-config.json
+      - key: RANKING_MAX_SCORE
+        value: 1500000
+      - key: RANKING_RATE_LIMIT_WINDOW_SECONDS
+        value: 60
+      - key: RANKING_RATE_LIMIT_MAX
+        value: 30
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gunmoji-ranking-db
+          property: connectionString
+
+databases:
+  - name: gunmoji-ranking-db
+    databaseName: gunmoji_ranking
+    user: gunmoji_ranking
+    plan: basic-256mb

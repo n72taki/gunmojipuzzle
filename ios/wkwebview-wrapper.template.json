@@ -1,0 +1,39 @@
+{
+  "wrapper": "WKWebView",
+  "bundleId": "com.sharocatcreate.kanagunmatsuri",
+  "displayName": "ぐんもじぱずる",
+  "orientation": "portrait",
+  "minimumIosVersion": "16.0",
+  "buildToolchain": {
+    "xcode": "26.0+",
+    "sdk": "iOS 26 SDK+"
+  },
+  "contentSource": {
+    "preferred": "bundled-public-preview",
+    "fallback": "https://TODO_PUBLIC_HOST/gunmojipuzzle/index.html",
+    "localBuildCommand": "node tools/build-public-preview.cjs"
+  },
+  "requiredNativeCapabilities": [
+    "WKWebView with JavaScript enabled",
+    "Safe-area aware full-screen portrait layout",
+    "No third-party analytics SDK until privacy forms are updated",
+    "No external purchase links for digital goods",
+    "StoreKit consumable products for paid G, or disabled purchase UI"
+  ],
+  "blockedUntilResolved": [
+    "TODO_PUBLIC_HOST",
+    "TODO_PUBLIC_PRIVACY_URL",
+    "TODO_PUBLIC_SUPPORT_URL",
+    "TODO_XCODE_PROJECT_AND_ARCHIVE",
+    "BLOCKED_UNTIL_STOREKIT_OR_DISABLED"
+  ],
+  "qaChecklist": [
+    "Launches offline if bundled assets are used",
+    "Launches from cold start without a blank WebView",
+    "No horizontal overflow on small iPhone",
+    "Game audio unlocks after first tap",
+    "Reduced motion and high contrast settings persist",
+    "G purchase flow either calls StoreKit or is hidden/disabled",
+    "No CLOSED TEST, TEST AD, TEST GRANT, or purchase mock copy in the App Review binary"
+  ]
+}

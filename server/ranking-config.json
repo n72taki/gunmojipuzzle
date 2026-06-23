@@ -1,0 +1,128 @@
+{
+  "deckSize": 3,
+  "rankingSeason": {
+    "id": "season-1",
+    "label": "シーズン1",
+    "title": "ぐんもじ杯",
+    "periodLabel": "2026/06/12 - 2026/08/31",
+    "qualifierTopN": 100,
+    "activeStageId": "season-1",
+    "qualifierLabel": "シーズン期間内の最高スコアで競います",
+    "titleRewards": [
+      {
+        "id": "season-top-100",
+        "stageId": "season-1",
+        "rankMax": 100,
+        "title": "シーズンランカー",
+        "label": "限定称号",
+        "limited": true
+      },
+      {
+        "id": "season-top-10",
+        "stageId": "season-1",
+        "rankMax": 10,
+        "title": "からっ風ランカー",
+        "label": "限定称号",
+        "limited": true
+      },
+      {
+        "id": "season-top-3",
+        "stageId": "season-1",
+        "rankMax": 3,
+        "title": "上州三傑",
+        "label": "限定称号",
+        "limited": true
+      },
+      {
+        "id": "season-top-1",
+        "stageId": "season-1",
+        "rankMax": 1,
+        "title": "ぐんもじ王",
+        "label": "限定称号",
+        "limited": true
+      }
+    ],
+    "stages": [
+      {
+        "id": "season-1",
+        "type": "season",
+        "label": "シーズン1",
+        "title": "シーズン1 ランキング",
+        "periodLabel": "2026/06/12 - 2026/08/31",
+        "status": "open",
+        "topN": 100
+      }
+    ],
+    "finalRules": []
+  },
+  "cards": [
+    {
+      "id": "basic-gunma-ken",
+      "readingKana": "ぐんまけん"
+    },
+    {
+      "id": "basic-akagi-san",
+      "readingKana": "あかぎさん"
+    },
+    {
+      "id": "basic-kusatsu-onsen",
+      "readingKana": "くさつおんせん"
+    },
+    {
+      "id": "basic-daruma",
+      "readingKana": "だるま"
+    },
+    {
+      "id": "basic-yaki-manju",
+      "readingKana": "やきまんじゅう"
+    },
+    {
+      "id": "season1-maebashi",
+      "readingKana": "まえばし"
+    },
+    {
+      "id": "season1-takasaki",
+      "readingKana": "たかさき"
+    },
+    {
+      "id": "season1-kiryu",
+      "readingKana": "きりゅう"
+    },
+    {
+      "id": "season1-isesaki",
+      "readingKana": "いせさき"
+    },
+    {
+      "id": "season1-ota",
+      "readingKana": "おおた"
+    },
+    {
+      "id": "season1-numata",
+      "readingKana": "ぬまた"
+    },
+    {
+      "id": "season1-tatebayashi",
+      "readingKana": "たてばやし"
+    },
+    {
+      "id": "season1-shibukawa",
+      "readingKana": "しぶかわ"
+    },
+    {
+      "id": "season1-fujioka",
+      "readingKana": "ふじおか"
+    },
+    {
+      "id": "season1-tomioka",
+      "readingKana": "とみおか"
+    },
+    {
+      "id": "season1-annaka",
+      "readingKana": "あんなか"
+    },
+    {
+      "id": "season1-midori",
+      "readingKana": "みどり"
+    }
+  ]
+}

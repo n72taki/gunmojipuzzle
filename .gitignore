@@ -1,0 +1,12 @@
+server/*.sqlite3
+server/*.sqlite3-shm
+server/*.sqlite3-wal
+server/*.log
+server/__pycache__/
+__pycache__/
+*.pyc
+dist/
+screenshot-*.png
+result-share-preview.png
+Thumbs.db
+.DS_Store

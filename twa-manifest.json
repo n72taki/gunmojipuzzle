@@ -1,0 +1,37 @@
+{
+  "packageId": "com.sharocatcreate.kanagunmatsuri",
+  "host": "TODO_PUBLIC_HOST",
+  "name": "ぐんもじぱずる",
+  "launcherName": "ぐんもじ",
+  "display": "standalone",
+  "orientation": "portrait",
+  "themeColor": "#ef5d50",
+  "backgroundColor": "#fff4d8",
+  "startUrl": "/gunmojipuzzle/index.html",
+  "scope": "/gunmojipuzzle/",
+  "manifestUrl": "https://TODO_PUBLIC_HOST/gunmojipuzzle/manifest.webmanifest",
+  "iconUrl": "https://TODO_PUBLIC_HOST/gunmojipuzzle/assets/app-icon-512.png",
+  "maskableIconUrl": "https://TODO_PUBLIC_HOST/gunmojipuzzle/assets/app-icon-512.png",
+  "fallbackType": "customtabs",
+  "signing": {
+    "sha256CertFingerprints": [
+      "TODO_RELEASE_CERT_SHA256"
+    ]
+  },
+  "store": {
+    "targetTrack": "closed-test",
+    "targetStore": "Google Play",
+    "policyUrls": {
+      "privacy": "TODO_PUBLIC_PRIVACY_URL",
+      "terms": "TODO_PUBLIC_TERMS_URL",
+      "commercialTransactions": "TODO_PUBLIC_COMMERCIAL_URL"
+    }
+  },
+  "releaseChecklist": [
+    "Publish the public preview over HTTPS before wrapper generation.",
+    "Replace TODO_PUBLIC_HOST and policy URLs with production HTTPS URLs.",
+    "Generate the Android release signing key and replace TODO_RELEASE_CERT_SHA256.",
+    "Publish /.well-known/assetlinks.json on the same host before Play review.",
+    "Run check-production-readiness.cjs and resolve every blocker before public submission."
+  ]
+}

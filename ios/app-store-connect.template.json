@@ -1,0 +1,85 @@
+{
+  "platform": "ios",
+  "bundleId": "com.sharocatcreate.kanagunmatsuri",
+  "sku": "KANAGUNMATSURI-IOS-001",
+  "name": "ぐんもじぱずる",
+  "subtitle": "60秒で群馬のことばを作るかなパズル",
+  "primaryLocale": "ja-JP",
+  "category": {
+    "primary": "Games",
+    "secondary": "Education"
+  },
+  "contentRights": {
+    "usesThirdPartyContent": false,
+    "notes": "Original UI and project-generated card art. Rights review is tracked in docs/RIGHTS_AND_MONETIZATION.md and docs/ART_PROMPT_LOG.md."
+  },
+  "ageRating": {
+    "target": "13+",
+    "notes": "No violence, gambling, UGC, chat, location, camera, microphone, or account features in the current build. Re-answer the 2026 App Store age rating questions before upload."
+  },
+  "privacy": {
+    "policyUrl": "TODO_PUBLIC_PRIVACY_URL",
+    "tracking": false,
+    "dataLinkedToUser": false,
+    "dataUsedForTracking": false,
+    "notes": "Local gameplay progress/settings only in the current app. Update before analytics, crash reporting, ranking sync, account, ads, or purchases."
+  },
+  "support": {
+    "supportUrl": "TODO_PUBLIC_SUPPORT_URL",
+    "marketingUrl": "TODO_PUBLIC_MARKETING_URL",
+    "copyright": "© 2026 SHAROCATCREATE"
+  },
+  "pricing": {
+    "appPrice": "free",
+    "gCurrencyPurchases": "BLOCKED_UNTIL_STOREKIT_OR_DISABLED",
+    "storeKitProducts": [
+      {
+        "productId": "com.sharocatcreate.kanagunmatsuri.g12",
+        "type": "consumable",
+        "amount": 12,
+        "status": "planned"
+      },
+      {
+        "productId": "com.sharocatcreate.kanagunmatsuri.g55",
+        "type": "consumable",
+        "amount": 55,
+        "status": "planned"
+      },
+      {
+        "productId": "com.sharocatcreate.kanagunmatsuri.g120",
+        "type": "consumable",
+        "amount": 120,
+        "status": "planned"
+      },
+      {
+        "productId": "com.sharocatcreate.kanagunmatsuri.g260",
+        "type": "consumable",
+        "amount": 260,
+        "status": "planned"
+      }
+    ]
+  },
+  "reviewNotes": {
+    "demoAccountRequired": false,
+    "testFlightFirst": true,
+    "notes": "The game is playable without account login. Explain G purchase status explicitly: either StoreKit products are live and reviewable, or the purchase screen is disabled in the submitted binary."
+  },
+  "screenshots": {
+    "source": "store-assets/public-screenshots",
+    "minimumPhoneSet": [
+      "01-title.png",
+      "02-home.png",
+      "03-gameplay.png",
+      "04-result.png",
+      "05-deck.png",
+      "06-pack.png",
+      "07-settings.png",
+      "08-missions.png"
+    ]
+  },
+  "toolchain": {
+    "requiredXcode": "26.0+",
+    "requiredSdk": "iOS 26 SDK+",
+    "status": "TODO_XCODE_PROJECT_AND_ARCHIVE"
+  }
+}
